@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Soma com 2</title>
+</head>
+<body>
+    <h1>Soma com 2</h1>
+    <input type="text" id="numberInput" placeholder="Digite um número">
+    <button id="calculateButton">Calcular</button>
+    <p id="result"> </p>
+    
+    <script>
+        document.getElementById("calculateButton").addEventListener("click", async function () {
+            const numberInput = document.getElementById("numberInput");
+            const resultElement = document.getElementById("result");
+
+            const number = parseInt(numberInput.value);
+
+            const response = await fetch("/calculate/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ number: number })
+                });
+
+            if (!isNaN(number) && response.ok) {
+                const data = await response.json();
+                numberInput.value = data.result;
+                resultElement.textContent = "";
+            } else {
+                resultElement.textContent = "Erro ao calcular.";
+            }
+        });
+    </script>
+</body>
+</html>
