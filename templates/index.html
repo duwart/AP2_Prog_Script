@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Soma com 2</title>
+    <title>AP2 Programação Script</title>
 </head>
 <body>
     <h1>Soma com 2</h1>
@@ -14,16 +14,16 @@
             const numberInput = document.getElementById("numberInput");
             const resultElement = document.getElementById("result");
 
-            const number = parseInt(numberInput.value);
+            const number = parseFloat(numberInput.value);
 
-            const response = await fetch("/calculate/", {
+            const response = await fetch("/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({ number: number })
                 });
-
+            
             if (!isNaN(number) && response.ok) {
                 const data = await response.json();
                 numberInput.value = data.result;

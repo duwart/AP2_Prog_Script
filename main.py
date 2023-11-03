@@ -6,15 +6,16 @@ app = FastAPI()
 # In templates will be the html files
 templates = Jinja2Templates(directory="templates")
 
-@app.get('/', response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def name(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    context = {"request": request}
+    return templates.TemplateResponse("index.html", context)
 
-@app.post("/calculate/")
-async def calculate(request: Request, data: dict):
-    number = data.get("number")
-    if number is not None:
-        result = number + 2
-        return {"result": result}
-    else:
-        return {"result": "Erro: número não especificado"}
+@app.post("/")
+async def calculate(data: dict):
+    result = data.get("number")
+    
+    if result is not None:
+        result = result + 2
+    
+    return {"result": result}
