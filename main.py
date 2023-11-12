@@ -1,10 +1,19 @@
 from fastapi import FastAPI, Request, status
-from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from pathlib import Path
 from typing import Dict
+
 
 # Aqui é criada uma instância de FastApi
 app = FastAPI()
+
+app.mount(
+    "/static",
+    StaticFiles(directory=Path(__file__).parent.absolute() / "static"),
+    name="static",
+)
 
 templates = Jinja2Templates(directory="templates")
 

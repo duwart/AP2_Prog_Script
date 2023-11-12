@@ -2,36 +2,13 @@
 <html>
 <head>
     <title>AP2 Programação Script</title>
-    
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <h1>Soma com 2</h1>
     <input type="text" id="numberInput" placeholder="Digite um número">
     <button id="calculateButton">Calcular</button>
     <p id="error"> </p>
-    
-    <script>
-        document.getElementById("calculateButton").addEventListener("click", async function () {
-            const numberInput = document.getElementById("numberInput");
-            const errorElement = document.getElementById("error");
-
-            const number = parseFloat(numberInput.value);
-
-            const response = await fetch("/result/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ number: number })
-                });
-            
-            if (!isNaN(number) && response.ok) {
-                const data = await response.json();
-                numberInput.value = data.result;
-            } else {
-                errorElement.textContent = "Erro ao calcular. Insira um número válido!";
-            }
-        });
-    </script>
+    <script src="static/script.js"></script>
 </body>
 </html>
